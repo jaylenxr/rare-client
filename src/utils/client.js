@@ -19,5 +19,3 @@ if (!firebase.apps.length) {
 }
 
 export { firebase, clientCredentials };
-
-export { firebase, clientCredentials };
