@@ -1,5 +1,6 @@
 {
-  "name": "nextjs-app-router-with-firebase-auth",
+  "name": "rareclient",
+  "authors": "Alyssa, Damitry, & Jay",
   "version": "0.1.0",
   "private": true,
   "scripts": {
