@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getSinglePost } from '../../../utils/data/postData';
+import { getPostTagsByPostId } from '../../../utils/data/tagData';
+import BasicTagCard from '../../../components/BasicTagCard';
 
 const initialState = {
   title: '',
@@ -14,6 +16,7 @@ const initialState = {
 function ViewPost({ params }) {
   const { id } = params;
   const [postDetails, setPostDetails] = useState(initialState);
+  const [postTags, setPostTags] = useState([]);
 
   const getThePost = () => {
     getSinglePost(id).then(setPostDetails);
@@ -21,6 +24,10 @@ function ViewPost({ params }) {
 
   useEffect(() => {
     getThePost();
+    getPostTagsByPostId(id).then((tags) => {
+      console.warn('Post Tags:', tags);
+      setPostTags(tags);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -28,12 +35,21 @@ function ViewPost({ params }) {
     <div className="view-post-container">
       <div className="view-post-card">
         <h2 className="post-title">{postDetails.title}</h2>
+
+        {/* POST'S TAGS */}
+        <div className="d-flex flex-wrap gap-2 mb-3">
+          {postTags.map((tag) => (
+            <BasicTagCard key={tag.tag.id} label={tag.tag.label} id={tag.tag.id} />
+          ))}
+        </div>
+
         {/* <div className="post-cat">
           <p className="post-category">Category: {postDetails.category_id}</p>
         </div> */}
 
         <div className="post-content">
           <h3>Content</h3>
+
           <p>{postDetails.content}</p>
         </div>
 

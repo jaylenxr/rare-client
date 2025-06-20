@@ -30,6 +30,7 @@ export default function ViewTagPage({ params }) {
 
   return (
     <div>
+      {/* TODO: conditionally render this button based on where user navigated from OR prob remove the button entirely OR change text to "see all tags" */}
       <Link style={{ marginLeft: '0px' }} href="/tags" passHref>
         <Button style={{ marginTop: '20px' }}>
           <FontAwesomeIcon pill className="me-2" icon={faArrowLeft} />
