@@ -36,7 +36,7 @@ function Posts() {
           Create A Post
         </Button>
       </div>
-      <h1 className="text-center mt-3">Posts</h1>
+      <h1 className="text-center mt-3">My Posts</h1>
       <div className="d-flex flex-wrap">
         {userPosts.map((postItem) => (
           <PostCard key={postItem.id} postObj={postItem} onUpdate={getAllThePosts} />

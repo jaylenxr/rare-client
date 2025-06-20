@@ -26,10 +26,6 @@ export default function NavBar() {
             <Link className="nav-link" href="/tags">
               Tag Manager
             </Link>
-
-            <Link className="nav-link" href="/profile">
-              Profile
-            </Link>
           </Nav>
 
           <Button variant="danger" onClick={signOut}>
