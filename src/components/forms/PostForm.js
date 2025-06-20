@@ -31,7 +31,7 @@ function PostForm({ user, postObj = {} }) {
         content: postObj.content || '',
         image_url: postObj.image_url || '',
         publication_date: postObj.publication_date || '',
-        category_id: String(postObj.category_id || ''),
+        category: postObj.category?.id ? String(postObj.category.id) : '',
       });
     }
   }, [postObj]);
@@ -53,7 +53,7 @@ function PostForm({ user, postObj = {} }) {
       content: currentPost.content,
       image_url: currentPost.image_url,
       publication_date: currentPost.publication_date,
-      category_id: Number(currentPost.category_id),
+      category_id: Number(currentPost.category),
       user_id: user.id,
     };
 
@@ -84,16 +84,10 @@ function PostForm({ user, postObj = {} }) {
         <Form.Control type="url" name="image_url" value={currentPost.image_url} onChange={handleChange} placeholder="Image URL" />
       </InputGroup>
 
-      {/* PUBLICATION DATE */}
-      <InputGroup className="mb-3">
-        <InputGroup.Text>📅</InputGroup.Text>
-        <Form.Control type="date" name="publication_date" required value={currentPost.publication_date} onChange={handleChange} />
-      </InputGroup>
-
       {/* CATEGORY */}
       <InputGroup className="mb-3">
         <InputGroup.Text>📂</InputGroup.Text>
-        <Form.Select name="category_id" required value={currentPost.category_id} onChange={handleChange}>
+        <Form.Select name="category" required value={currentPost.category} onChange={handleChange}>
           <option value="">Select a Category</option>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
@@ -120,7 +114,7 @@ PostForm.propTypes = {
     content: PropTypes.string,
     image_url: PropTypes.string,
     publication_date: PropTypes.string,
-    category_id: PropTypes.number,
+    category: PropTypes.number,
   }),
 };
 
