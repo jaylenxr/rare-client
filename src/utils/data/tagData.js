@@ -62,4 +62,23 @@ const deleteTag = (id) =>
       .catch(reject);
   });
 
-export { getTags, createTag, updateTag, getTagById, deleteTag };
+const removeTagFromPost = (postId, tagId) =>
+  new Promise((resolve, reject) => {
+    fetch(`${clientCredentials.databaseURL}/posttags/?post_id=${postId}&tag_id=${tagId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.length > 0) {
+          const postTagId = data[0].id;
+          fetch(`${clientCredentials.databaseURL}/posttags/${postTagId}`, {
+            method: 'DELETE',
+          })
+            .then(resolve)
+            .catch(reject);
+        } else {
+          reject(new Error('PostTag not found'));
+        }
+      })
+      .catch(reject);
+  });
+
+export { getTags, createTag, updateTag, getTagById, deleteTag, removeTagFromPost };
