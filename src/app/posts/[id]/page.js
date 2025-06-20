@@ -6,7 +6,7 @@ import { getSinglePost } from '../../../utils/data/postData';
 
 const initialState = {
   title: '',
-  // category_id: '',
+  category_id: '',
   content: '',
   // tags: [],
 };
@@ -29,7 +29,7 @@ function ViewPost({ params }) {
       <div className="view-post-card">
         <h2 className="post-title">{postDetails.title}</h2>
         {/* <div className="post-cat">
-          <p className="post-category">Category: {postDetails.category?.label}</p>
+          <p className="post-category">Category: {postDetails.category_id}</p>
         </div> */}
 
         <div className="post-content">

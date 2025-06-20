@@ -28,11 +28,6 @@ function PostCard({ postObj, onUpdate }) {
               {postObj.category.label}
             </Badge>
           )}
-          {!postObj.approved && (
-            <Badge bg="warning" className="ms-2">
-              Pending Approval
-            </Badge>
-          )}
         </div>
 
         <Card.Title>{postObj.title}</Card.Title>
@@ -44,7 +39,7 @@ function PostCard({ postObj, onUpdate }) {
         <Card.Text className="flex-grow-1">{postObj.content}</Card.Text>
 
         <div className="mt-auto">
-          <Link href={`/post/${postObj.id}`} passHref>
+          <Link href={`/posts/${postObj.id}`} passHref>
             <Button variant="primary" className="me-2">
               VIEW
             </Button>
@@ -53,7 +48,7 @@ function PostCard({ postObj, onUpdate }) {
           {/* only shows the edit/delete btns if user owns the post */}
           {user && user.uid === postObj.user.uid && (
             <>
-              <Link href={`/post/edit/${postObj.id}`} passHref>
+              <Link href={`/posts/edit/${postObj.id}`} passHref>
                 <Button variant="warning" className="me-2">
                   EDIT
                 </Button>
