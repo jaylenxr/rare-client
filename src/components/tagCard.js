@@ -23,7 +23,11 @@ function TagCard({ label, id, refreshTags }) {
   return (
     <div className="mb-2">
       <Badge bg="" pill className="fs-6" style={{ backgroundColor: '#6f42c1', color: '#fff' }}>
-        #{label}
+        <OverlayTrigger placement="bottom" overlay={<Tooltip id={`tooltip-${id}`}>View Tag&apos;s Posts</Tooltip>}>
+          <Link href={`/tags/${id}`} passHref className="text-white text-decoration-none">
+            #{label}
+          </Link>
+        </OverlayTrigger>
         <OverlayTrigger placement="bottom" overlay={<Tooltip id={`tooltip-${id}`}>Edit Tag</Tooltip>}>
           <Link href={`/tags/edit/${id}`} passHref className="text-white text-decoration-none">
             <FontAwesomeIcon className="ms-4" icon={faPen} />
