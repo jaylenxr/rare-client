@@ -19,8 +19,8 @@ function PostCard({ postObj, onUpdate }) {
   const { user } = useAuth();
 
   return (
-    <Card className="h-100">
-      <Card.Img variant="top" src={postObj.image_url} alt={postObj.title} style={{ height: '250px' }} />
+    <Card className="h-100" style={{ maxWidth: '400px', maxHeight: '600px', overflow: 'hidden' }}>
+      <Card.Img variant="top" src={postObj.image_url} alt={postObj.title} style={{ height: '250px', objectFit: 'contain', width: '100%' }} />
       <Card.Body className="d-flex flex-column">
         <div className="mb-2">
           {postObj.category && (
@@ -41,7 +41,9 @@ function PostCard({ postObj, onUpdate }) {
           By {postObj.user.first_name} {postObj.user.last_name}
         </Card.Text>
 
-        <Card.Text className="flex-grow-1">{postObj.content}</Card.Text>
+        <Card.Text className="flex-grow-1 text-truncate" style={{ maxWidth: '400px', maxHeight: '600px', overflow: 'hidden' }}>
+          {postObj.content}
+        </Card.Text>
 
         <div className="mt-auto">
           <Link href={`/post/${postObj.id}`} passHref>

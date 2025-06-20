@@ -64,5 +64,14 @@ const deletePost = (id) =>
       .catch(reject);
   });
 
+// GET POSTS BY TAG
+const getPostsByTag = (tagId) =>
+  new Promise((resolve, reject) => {
+    fetch(`${clientCredentials.databaseURL}/posts?tag=${tagId}`)
+      .then((res) => res.json())
+      .then(resolve)
+      .catch(reject);
+  });
+
 // eslint-disable-next-line import/prefer-default-export
-export { getPosts, getSinglePost, createPost, updatePost, deletePost };
+export { getPosts, getSinglePost, createPost, updatePost, deletePost, getPostsByTag };
