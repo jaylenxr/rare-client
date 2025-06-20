@@ -67,6 +67,15 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: false,
+        optionalDependencies: false,
+        peerDependencies: false,
+        packageDir: './',
+      },
+    ],
     'react/prop-types': ['error', { skipUndeclared: false }],
     'react/require-default-props': [
       'error',
