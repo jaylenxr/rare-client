@@ -19,7 +19,7 @@ export default function NavBar() {
               All Posts
             </Link>
 
-            <Link className="nav-link" href="/myPosts">
+            <Link className="nav-link" href="/myposts">
               My Posts
             </Link>
 

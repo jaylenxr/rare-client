@@ -73,5 +73,29 @@ const getPostsByTag = (tagId) =>
       .catch(reject);
   });
 
+const getAllPublicPosts = () =>
+  new Promise((resolve, reject) => {
+    fetch(`${clientCredentials.databaseURL}/posts?public=true`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then(resolve)
+      .catch(reject);
+  });
+// GET PRIVATE POSTS BY USER UID
+const getUserPrivatePosts = (uid) =>
+  new Promise((resolve, reject) => {
+    fetch(`${clientCredentials.databaseURL}/posts?user_uid=${uid}&public=false`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => response.json())
+      .then(resolve)
+      .catch(reject);
+  });
+
 // eslint-disable-next-line import/prefer-default-export
-export { getPosts, getSinglePost, createPost, updatePost, deletePost, getPostsByTag };
+export { getPosts, getSinglePost, createPost, updatePost, deletePost, getPostsByTag, getAllPublicPosts, getUserPrivatePosts };

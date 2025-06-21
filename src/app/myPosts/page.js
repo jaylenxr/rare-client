@@ -8,6 +8,7 @@ import { Button } from 'react-bootstrap';
 import { getPosts } from '../../utils/data/postData';
 import PostCard from '../../components/PostCard';
 import { useAuth } from '../../utils/context/authContext';
+import { getUserPrivatePosts } from '../../utils/data/postData';
 
 function Posts() {
   const [userPosts, setUserPosts] = useState([]);
@@ -15,8 +16,9 @@ function Posts() {
   const { user } = useAuth();
 
   const getAllThePosts = () => {
+    getUserPrivatePosts(user.uid).then(setUserPosts);
     getPosts().then((allPosts) => {
-      const filteredPosts = allPosts.filter((post) => post.user.first_name === user.first_name && post.user.last_name === user.last_name);
+      const filteredPosts = allPosts.filter((post) => post.user.first_name === user.first_name && post.user.last_name === user.last_name && post.is_public === false);
       setUserPosts(filteredPosts);
     });
   };
@@ -36,7 +38,7 @@ function Posts() {
           Create A Post
         </Button>
       </div>
-      <h1 className="text-center mt-3">Posts</h1>
+      <h1 className="text-center mt-3">My Posts</h1>
       <div className="d-flex flex-wrap">
         {userPosts.map((postItem) => (
           <PostCard key={postItem.id} postObj={postItem} onUpdate={getAllThePosts} />

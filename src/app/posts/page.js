@@ -3,15 +3,16 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from 'react-bootstrap';
-import { getPosts } from '../../utils/data/postData';
 import PostCard from '../../components/PostCard';
+import { getAllPublicPosts } from '../../utils/data/postData';
 
 function Posts() {
   const [posts, setPosts] = useState([]);
   const router = useRouter();
 
-  const getAllThePosts = () => {
-    getPosts().then(setPosts);
+  const getAllThePosts = async () => {
+    const getThePublicPosts = await getAllPublicPosts();
+    setPosts(getThePublicPosts);
   };
 
   useEffect(() => {
@@ -29,8 +30,10 @@ function Posts() {
           Create A Post
         </Button>
       </div>
-      <h1 className="text-center mt-3">Posts</h1>
-      <div className="d-flex flex-wrap" id="cardDiv">
+
+      <h1 className="text-center mt-3">All Public Posts</h1>
+      <div className="d-flex flex-wrap">
+
         {posts.map((post) => (
           <PostCard key={post.id} postObj={post} onUpdate={getAllThePosts} />
         ))}
