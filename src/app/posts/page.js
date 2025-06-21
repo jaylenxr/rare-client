@@ -20,7 +20,7 @@ function Posts() {
 
   return (
     <>
-      <div className="d-flex justify-content-center mb-3">
+      <div className="d-flex justify-content-center mb-3 mt-3">
         <Button
           onClick={() => {
             router.push('/posts/new');
@@ -30,7 +30,7 @@ function Posts() {
         </Button>
       </div>
       <h1 className="text-center mt-3">Posts</h1>
-      <div className="d-flex flex-wrap">
+      <div className="d-flex flex-wrap" id="cardDiv">
         {posts.map((post) => (
           <PostCard key={post.id} postObj={post} onUpdate={getAllThePosts} />
         ))}

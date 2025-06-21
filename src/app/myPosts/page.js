@@ -27,7 +27,7 @@ function Posts() {
 
   return (
     <>
-      <div className="d-flex justify-content-center mb-3">
+      <div className="d-flex justify-content-center mb-3 mt-3">
         <Button
           onClick={() => {
             router.push('/posts/new');
