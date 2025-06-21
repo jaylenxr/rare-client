@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { createPost, updatePost } from '../../utils/data/postData';
-import { createPostTag, getTags, getPostTagsByPostId } from '../../utils/data/tagData';
+import { createPostTag, getTags, getPostTagsByPostId, removeTagsFromPost } from '../../utils/data/tagData';
 import getCategories from '../../utils/data/categoryData';
 
 const initialState = {

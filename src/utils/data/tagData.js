@@ -62,24 +62,23 @@ const deleteTag = (id) =>
       .catch(reject);
   });
 
-const removeTagFromPost = (postId, tagId) =>
-  new Promise((resolve, reject) => {
-    fetch(`${clientCredentials.databaseURL}/posttags/?post_id=${postId}&tag_id=${tagId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.length > 0) {
-          const postTagId = data[0].id;
-          fetch(`${clientCredentials.databaseURL}/posttags/${postTagId}`, {
-            method: 'DELETE',
-          })
-            .then(resolve)
-            .catch(reject);
-        } else {
-          reject(new Error('PostTag not found'));
-        }
-      })
-      .catch(reject);
-  });
+const removeTagsFromPost = async (postId) => {
+  try {
+    const res = await fetch(`${clientCredentials.databaseURL}/posttags/?post_id=${postId}`);
+    const postTags = await res.json();
+
+    const deletions = postTags.map((pt) =>
+      fetch(`${clientCredentials.databaseURL}/posttags/${pt.id}`, {
+        method: 'DELETE',
+      }),
+    );
+
+    await Promise.all(deletions);
+    return true;
+  } catch (err) {
+    throw new Error('Failed to remove tags from post');
+  }
+};
 
 const getPostTagsByPostId = async (postId) => {
   const res = await fetch(`${clientCredentials.databaseURL}/posttags?post_id=${postId}`, {
@@ -121,4 +120,4 @@ const createPostTag = async (postId, tagId) => {
   }
 };
 
-export { getTags, createTag, updateTag, getTagById, deleteTag, removeTagFromPost, createPostTag, getPostTagsByPostId };
+export { getTags, createTag, updateTag, getTagById, deleteTag, removeTagsFromPost, createPostTag, getPostTagsByPostId };

@@ -21,7 +21,7 @@ function Posts() {
 
   return (
     <>
-      <div className="d-flex justify-content-center mb-3">
+      <div className="d-flex justify-content-center mb-3 mt-3">
         <Button
           onClick={() => {
             router.push('/posts/new');
@@ -30,8 +30,10 @@ function Posts() {
           Create A Post
         </Button>
       </div>
+
       <h1 className="text-center mt-3">All Public Posts</h1>
       <div className="d-flex flex-wrap">
+
         {posts.map((post) => (
           <PostCard key={post.id} postObj={post} onUpdate={getAllThePosts} />
         ))}

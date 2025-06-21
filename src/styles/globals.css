@@ -1,4 +1,10 @@
 body {
-  background: black;
-  color: white;
+  background: rgba(123, 123, 123, 0.128);
+}
+
+#cardDiv {
+  row-gap: 20px;
+  column-gap: 20px;
+  align-items: center;
+  padding-top: 10%;
 }
