@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
+import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { createPost, updatePost } from '../../utils/data/postData';
 import { createPostTag, getTags, getPostTagsByPostId } from '../../utils/data/tagData';
 import getCategories from '../../utils/data/categoryData';
@@ -16,6 +17,7 @@ const initialState = {
   image_url: '',
   publication_date: '',
   category_id: '',
+  is_public: false,
 };
 
 function PostForm({ user, postObj = {} }) {
@@ -38,6 +40,7 @@ function PostForm({ user, postObj = {} }) {
         image_url: postObj.image_url || '',
         publication_date: postObj.publication_date || '',
         category: postObj.category?.id ? String(postObj.category.id) : '',
+        is_public: postObj.is_public || false,
       });
 
       getPostTagsByPostId(postObj?.id)
@@ -58,7 +61,12 @@ function PostForm({ user, postObj = {} }) {
       [name]: value,
     }));
   };
-
+  const handleToggleChange = () => {
+    setCurrentPost((prevState) => ({
+      ...prevState,
+      is_public: !prevState.is_public,
+    }));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -70,6 +78,7 @@ function PostForm({ user, postObj = {} }) {
       publication_date: currentPost.publication_date,
       category_id: Number(currentPost.category),
       user_id: user.id,
+      is_public: currentPost.is_public,
     };
 
     if (postObj?.id) {
@@ -105,19 +114,16 @@ function PostForm({ user, postObj = {} }) {
         <InputGroup.Text>📝</InputGroup.Text>
         <Form.Control type="text" name="title" required value={currentPost.title} onChange={handleChange} placeholder="Post Title" />
       </InputGroup>
-
       {/* CONTENT */}
       <InputGroup className="mb-3">
         <InputGroup.Text>✍️</InputGroup.Text>
         <Form.Control as="textarea" name="content" required value={currentPost.content} onChange={handleChange} placeholder="Write your post content here..." style={{ height: '150px' }} />
       </InputGroup>
-
       {/* IMAGE URL */}
       <InputGroup className="mb-3">
         <InputGroup.Text>🌄</InputGroup.Text>
         <Form.Control type="url" name="image_url" value={currentPost.image_url} onChange={handleChange} placeholder="Image URL" />
       </InputGroup>
-
       {/* CATEGORY */}
       <InputGroup className="mb-3">
         <InputGroup.Text>📂</InputGroup.Text>
@@ -130,7 +136,6 @@ function PostForm({ user, postObj = {} }) {
           ))}
         </Form.Select>
       </InputGroup>
-
       {/* TAGS */}
       {/* TAGS */}
       <div className="mb-3">
@@ -156,7 +161,35 @@ function PostForm({ user, postObj = {} }) {
           ))}
         </div>
       </div>
-
+      {/* PUBLIC TOGGLE */}
+      <ToggleButtonGroup
+        type="checkbox"
+        style={{
+          marginBottom: '15px',
+          display: 'block',
+          width: 'fit-content',
+          borderRadius: '30px',
+          padding: '5px',
+        }}
+      >
+        <ToggleButton
+          checked={currentPost.is_public}
+          value={currentPost.is_public}
+          onClick={handleToggleChange}
+          style={{
+            backgroundColor: currentPost.is_public ? '#4b9cd3' : '#d3d3d3',
+            border: 'none',
+            borderRadius: '30px',
+            color: 'white',
+            fontWeight: 'bold',
+            padding: '8px 20px',
+            fontSize: '14px',
+            transition: 'background-color 0.3s ease, transform 0.3s ease',
+          }}
+        >
+          {currentPost.is_public ? 'Public' : 'Private'}
+        </ToggleButton>
+      </ToggleButtonGroup>{' '}
       <Button variant="success" type="submit">
         {postObj.id ? 'Update' : 'Create'} Post
       </Button>
