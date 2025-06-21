@@ -66,6 +66,7 @@ const removeTagsFromPost = async (postId) => {
   try {
     const res = await fetch(`${clientCredentials.databaseURL}/posttags/?post_id=${postId}`);
     const postTags = await res.json();
+    console.log('PostTags toaaaaaaaaaa delete:', postTags);
 
     const deletions = postTags.map((pt) =>
       fetch(`${clientCredentials.databaseURL}/posttags/${pt.id}`, {

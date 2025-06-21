@@ -16,9 +16,8 @@ function Posts() {
   const { user } = useAuth();
 
   const getAllThePosts = () => {
-    getUserPrivatePosts(user.uid).then(setUserPosts);
     getPosts().then((allPosts) => {
-      const filteredPosts = allPosts.filter((post) => post.user.first_name === user.first_name && post.user.last_name === user.last_name && post.is_public === false);
+      const filteredPosts = allPosts.filter((post) => post.user.first_name === user.first_name && post.user.last_name === user.last_name);
       setUserPosts(filteredPosts);
     });
   };
